@@ -2,18 +2,7 @@ use serialport::{SerialPortSettings, open_with_settings};
 use rusqlite::{Connection, Result};
 use std::io::{self, BufRead};
 use std::time::Duration;
-
-fn lookup_name_by_serial(serial: i32, conn: &Connection) -> Result<Option<String>> {
-    let mut stmt = conn.prepare("SELECT name FROM people WHERE serial_number = ?")?;
-    let mut rows = stmt.query([serial])?;
-
-    if let Some(row) = rows.next()? {
-        let name: String = row.get(0)?;
-        Ok(Some(name))
-    } else {
-        Ok(None)
-    }
-}
+use idtap::lookup_name_by_serial;
 
 fn main() -> Result<()> {
     // Replace "COM1" with the actual serial port name on your system.
