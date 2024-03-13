@@ -1,4 +1,8 @@
-use rusqlite::{Connection, Result};
+use rusqlite::Connection;
+
+mod error;
+
+pub use error::{IDTapError, Result};
 
 struct Person {
     name: String,
@@ -31,7 +35,6 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-
 
 // #[cfg(test)]
 // mod tests {
